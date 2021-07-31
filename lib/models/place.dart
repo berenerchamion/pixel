@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'dart:io';
+
+import './pixel_location.dart';
 
 class Place{
   final String id;
   final String title;
-  final String location;
-  final String image;
+  final PixelLocation location;
+  final File image;
 
   Place({
     required this.id,
