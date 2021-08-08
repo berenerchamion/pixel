@@ -10,7 +10,10 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
-  File _storedImage = File('assets/images/product-placeholder.png');
+  //File _storedImage = File('assets/images/product-placeholder.png');
+  Image _storedImage = Image(
+    image: AssetImage('assets/images/no-image-icon-23494.png'),
+  );
 
   Future _takePicture() async {
     final _imagePicker = ImagePicker();
@@ -22,18 +25,12 @@ class _ImageInputState extends State<ImageInput> {
 
   @override
   Widget build(BuildContext context) {
-    if (_storedImage.existsSync()) {
-      print('I exist!');
-    } else {
-      print('I do not exist');
-    }
-    print(_storedImage.existsSync());
 
     return Row(
       children: [
         Container(
           width: 150,
-          height: 100,
+          height: 150,
           decoration: BoxDecoration(
             border: Border.all(
               width: 1,
@@ -41,15 +38,10 @@ class _ImageInputState extends State<ImageInput> {
             ),
           ),
           alignment: Alignment.center,
-          child: _storedImage.existsSync()
-              ? Image.file(
-                  _storedImage,
+          child: Image(
+                  image: _storedImage.image,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                )
-              : Text(
-                  'No image taken.',
-                  textAlign: TextAlign.center,
                 ),
         ), //Container
         SizedBox(
