@@ -10,17 +10,19 @@ class ImageInput extends StatefulWidget {
 }
 
 class _ImageInputState extends State<ImageInput> {
-  //File _storedImage = File('assets/images/product-placeholder.png');
   Image _storedImage = Image(
     image: AssetImage('assets/images/no-image-icon-23494.png'),
   );
 
-  Future _takePicture() async {
+  Future<void> _takePicture() async {
     final _imagePicker = ImagePicker();
-    final imageFile = await _imagePicker.pickImage(
+    final XFile? imageFile = await _imagePicker.pickImage(
       source: ImageSource.camera,
       maxWidth: 600,
     );
+    setState(() {
+      _storedImage = Image.file(File(imageFile!.path));
+    });
   }
 
   @override
