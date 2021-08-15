@@ -21,7 +21,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
 
   void _savePlace () {
     if (_titleController.text.isEmpty || _selectedImage == null) {
-      //@todo come back and fix this. 
+      //@todo come back and fix this to include error handling.
       return;
     }
   }

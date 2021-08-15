@@ -24,7 +24,7 @@ class _ImageInputState extends State<ImageInput> {
       maxWidth: 600,
     );
     setState(() {
-      _storedImage = Image.file(File(imageFile!.path));
+      _storedImage = Image.file(File(_imageFile!.path));
     });
     final appDir = await pp.getApplicationDocumentsDirectory();
     final fileName = p.basename(_imageFile!.path);
