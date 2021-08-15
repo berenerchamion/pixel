@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import "dart:io";
 import '../widgets/image_input.dart';
+import 'package:cross_file/cross_file.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({Key? key}) : super(key: key);
@@ -11,6 +13,19 @@ class AddPlaceScreen extends StatefulWidget {
 
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
+  XFile? _selectedImage;
+
+  void _selectImage(XFile file) {
+    _selectedImage = file;
+  }
+
+  void _savePlace () {
+    if (_titleController.text.isEmpty || _selectedImage == null) {
+      //@todo come back and fix this. 
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +52,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                       height: 10.0,
                     ),
                     Container(
-                      child: ImageInput(),
+                      child: ImageInput(_selectImage),
                     ),
                   ],
                 ), //Column
