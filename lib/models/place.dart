@@ -1,3 +1,4 @@
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 
@@ -7,7 +8,7 @@ class Place{
   final String id;
   final String title;
   final PixelLocation location;
-  final File image;
+  final XFile image;
 
   Place({
     required this.id,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import "dart:io";
-import '../widgets/image_input.dart';
+import 'package:provider/provider.dart';
 import 'package:cross_file/cross_file.dart';
+
+import '../widgets/image_input.dart';
+import '../providers/pixel_places_provider.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({Key? key}) : super(key: key);
@@ -19,11 +21,18 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
     _selectedImage = file;
   }
 
-  void _savePlace () {
+  void _savePlace() {
     if (_titleController.text.isEmpty || _selectedImage == null) {
       //@todo come back and fix this to include error handling.
       return;
     }
+    Provider.of<PixelPlacesProvider>(
+      context,
+      listen: false,
+    ).addPixelPlace(
+      _titleController.value.text,
+      _selectedImage!,
+    );
   }
 
   @override
