@@ -15,12 +15,15 @@ class PixelPlacesProvider with ChangeNotifier {
   }
 
   void addPixelPlace(String title, XFile image) {
-    Image pixelImage = Image.file(File(image!.path));
+    //How to convert an XFile to an image - remove later if not needed
+    // Image? pixelImage = Image.file(File(image.path));
+
     PixelLocation location = PixelLocation(
       latitude: 0.0,
       longitude: 0.0,
       address: 'House of Beor, llc.',
-    )
+    );
+
     final newPixelPlace = Place(
       id: DateTime.now().toString(),
       image: image,
@@ -29,6 +32,7 @@ class PixelPlacesProvider with ChangeNotifier {
     );
 
     _places.add(newPixelPlace);
+    print('Adding place length= ${_places.length}');
     notifyListeners();
   }
 }

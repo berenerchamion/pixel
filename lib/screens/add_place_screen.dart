@@ -33,6 +33,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
       _titleController.value.text,
       _selectedImage!,
     );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -76,7 +77,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
               elevation: 0,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
-            onPressed: () {},
+            onPressed:_savePlace,
           ), //Button
         ],
       ), //Column
