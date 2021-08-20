@@ -23,11 +23,15 @@ class _ImageInputState extends State<ImageInput> {
       source: ImageSource.camera,
       maxWidth: 600,
     );
+    //This can happen if the user hits the back button
+    if (_imageFile == null) {
+      return;
+    }
     setState(() {
-      _storedImage = Image.file(File(_imageFile!.path));
+      _storedImage = Image.file(File(_imageFile.path));
     });
     final appDir = await pp.getApplicationDocumentsDirectory();
-    final fileName = p.basename(_imageFile!.path);
+    final fileName = p.basename(_imageFile.path);
     await _imageFile.saveTo('${appDir.path}/$fileName');
     widget.onSelectImage(_imageFile);
   }

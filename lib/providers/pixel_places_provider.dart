@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cross_file/cross_file.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart' as pp;
-import 'package:path/path.dart' as p;
+import '../helpers/db_helper.dart';
 
 import '../models/place.dart';
 import '../models/pixel_location.dart';
@@ -15,8 +13,6 @@ class PixelPlacesProvider with ChangeNotifier {
   }
 
   void addPixelPlace(String title, XFile image) {
-    //How to convert an XFile to an image - remove later if not needed
-    // Image? pixelImage = Image.file(File(image.path));
 
     PixelLocation location = PixelLocation(
       latitude: 0.0,
@@ -34,5 +30,10 @@ class PixelPlacesProvider with ChangeNotifier {
     _places.add(newPixelPlace);
     print('Adding place length= ${_places.length}');
     notifyListeners();
+    DBHelper.insert('user_places', {
+      'id': newPixelPlace.id,
+      'title': newPixelPlace.title,
+      'image': image.path
+    });
   }
 }
