@@ -24,34 +24,41 @@ class PlacesListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Consumer<PixelPlacesProvider>(
-          child: Center(
-            child: Text('You need to add some places.'),
-          ),
-          builder: (ctx, pixelPlacesProvider, ch) {
-            if (pixelPlacesProvider.places.length > 0) {
-              print('WTF: ${pixelPlacesProvider.places.length}');
-              return ListView.builder(
-                  itemCount: pixelPlacesProvider.places.length,
-                  itemBuilder: (ctx, int i) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        // Image? pixelImage = Image.file(File(image.path));
-                        backgroundImage: FileImage(
-                            File(pixelPlacesProvider.places[i].image.path)),
-                      ),
-                      title: Text(pixelPlacesProvider.places[i].title),
-                      onTap: (){},
+      body: FutureBuilder(
+        future: Provider.of<PixelPlacesProvider>(context, listen: false)
+            .getPixelPlaces(),
+        builder: (ctx, snapShot) => snapShot.connectionState ==
+                ConnectionState.waiting
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Consumer<PixelPlacesProvider>(
+                child: Center(
+                  child: Text('You need to add some places.'),
+                ),
+                builder: (ctx, pixelPlacesProvider, ch) {
+                  if (pixelPlacesProvider.places.length > 0) {
+                    return ListView.builder(
+                        itemCount: pixelPlacesProvider.places.length,
+                        itemBuilder: (ctx, int i) {
+                          return ListTile(
+                            leading: CircleAvatar(
+                              // Image? pixelImage = Image.file(File(image.path));
+                              backgroundImage: FileImage(File(
+                                  pixelPlacesProvider.places[i].image.path)),
+                            ),
+                            title: Text(pixelPlacesProvider.places[i].title),
+                            onTap: () {},
+                          );
+                        });
+                  } else {
+                    return Center(
+                      child: Text(
+                          'You need to add some places: ${pixelPlacesProvider.places.length}'),
                     );
-                  });
-            } else {
-              return Center(
-                child: Text(
-                    'You need to add some places: ${pixelPlacesProvider.places.length}'),
-              );
-            }
-            return Text('Still no list: ${pixelPlacesProvider.places.length}');
-          }), //Consumer
+                  }
+                }),
+      ), //Consumer
     );
   }
 }
