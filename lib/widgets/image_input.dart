@@ -49,6 +49,7 @@ class _ImageInputState extends State<ImageInput> {
               width: 1,
               color: Theme.of(context).accentColor,
             ),
+            borderRadius: BorderRadius.circular(3.0),
           ),
           alignment: Alignment.center,
           child: Image(

@@ -4,6 +4,7 @@ import 'package:cross_file/cross_file.dart';
 
 import '../widgets/image_input.dart';
 import '../providers/pixel_places_provider.dart';
+import '../widgets/location_input.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({Key? key}) : super(key: key);
@@ -64,6 +65,10 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     Container(
                       child: ImageInput(_selectImage),
                     ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    LocationInput(),
                   ],
                 ), //Column
               ),

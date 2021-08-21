@@ -45,5 +45,7 @@
 	<string>I need to take pictures to capture places.</string>
 	<key>NSCameraUsageDescription</key>
     <string>I need to take pictures to capture places.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>I need to get locations to save PixelPlace locations.</string>
 </dict>
 </plist>
