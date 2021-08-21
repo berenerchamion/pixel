@@ -13,7 +13,6 @@ class PixelPlacesProvider with ChangeNotifier {
   }
 
   void addPixelPlace(String title, XFile image) {
-
     PixelLocation location = PixelLocation(
       latitude: 0.0,
       longitude: 0.0,
@@ -35,5 +34,20 @@ class PixelPlacesProvider with ChangeNotifier {
       'title': newPixelPlace.title,
       'image': image.path
     });
+  }
+
+  Future<void> getPixelPlaces() async {
+    final data = await DBHelper.getData('user_places');
+    _places = data
+        .map(
+          (place) => Place(
+            id: place['id'],
+            title: place['title'],
+            location: PixelLocation(latitude: 0.0, longitude: 0.0),
+            image: XFile(place['image']),
+          ),
+        )
+        .toList();
+    notifyListeners();
   }
 }
