@@ -5,7 +5,7 @@ class PixelLocation {
   final double longitude;
   final String address;
 
-  PixelLocation({
+  const PixelLocation({
     required this.latitude,
     required this.longitude,
     this.address = '',

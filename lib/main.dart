@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './screens/places_list_screen.dart';
 import './screens/add_place_screen.dart';
+import './screens/map_screen.dart';
 
 import './providers/pixel_places_provider.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         home: PlacesListScreen(),
         routes: {
           AddPlaceScreen.routeName: (ctx) => AddPlaceScreen(),
+          MapScreen.routeName: (ctx) => MapScreen(),
         },
       ),
     );
