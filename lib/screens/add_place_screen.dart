@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cross_file/cross_file.dart';
 
-import '../widgets/image_input.dart';
 import '../providers/pixel_places_provider.dart';
+import '../helpers/location_helper.dart';
+import '../widgets/image_input.dart';
 import '../widgets/location_input.dart';
+import '../models/pixel_location.dart';
 
 class AddPlaceScreen extends StatefulWidget {
   const AddPlaceScreen({Key? key}) : super(key: key);
@@ -17,13 +19,29 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
   XFile? _selectedImage;
+  PixelLocation? _selectedLocation;
 
   void _selectImage(XFile file) {
     _selectedImage = file;
   }
 
+  void _selectLocation(double lat, double long) {
+    String address = LocationHelper.getPixelPlaceAddress(
+      latitude: lat,
+      longitude: long,
+    ) as String;
+
+    _selectedLocation = PixelLocation(
+      latitude: lat,
+      longitude: long,
+      address: address,
+    );
+  }
+
   void _savePlace() {
-    if (_titleController.text.isEmpty || _selectedImage == null) {
+    if (_titleController.text.isEmpty ||
+        _selectedImage == null ||
+        _selectedLocation == null) {
       //@todo come back and fix this to include error handling.
       return;
     }
@@ -33,6 +51,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
     ).addPixelPlace(
       _titleController.value.text,
       _selectedImage!,
+      _selectedLocation!,
     );
     Navigator.of(context).pop();
   }
@@ -68,7 +87,12 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     SizedBox(
                       height: 10.0,
                     ),
-                    LocationInput(),
+                    Container(
+                      child: LocationInput(_selectLocation),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
                   ],
                 ), //Column
               ),
@@ -82,7 +106,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
               elevation: 0,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
-            onPressed:_savePlace,
+            onPressed: _savePlace,
           ), //Button
         ],
       ), //Column

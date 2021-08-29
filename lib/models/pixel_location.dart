@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class PixelLocation {
   final double latitude;
   final double longitude;
