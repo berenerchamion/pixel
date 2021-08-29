@@ -28,35 +28,42 @@ class _LocationInputState extends State<LocationInput> {
   }
 
   Future<void> _getPixelLocation() async {
-    final locationData = await Location().getLocation();
-
-    _showPreview(locationData.latitude!, locationData.longitude!);
-
-    widget.onSelectPixelPlace(
-      locationData.latitude,
-      locationData.longitude,
-    );
+    try {
+      final locationData = await Location().getLocation();
+      _showPreview(locationData.latitude!, locationData.longitude!);
+      widget.onSelectPixelPlace(
+        locationData.latitude,
+        locationData.longitude,
+      );
+    } catch (error) {
+      //@todo - come back and improve this
+      return;
+    }
   }
 
   Future<void> _selectOnMap() async {
-    final LatLng selectedLocation = await Navigator.of(context).push(
-      MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (ctx) => MapScreen(isSelecting: true),
-      ),
-    );
+    try {
+      final LatLng selectedLocation = await Navigator.of(context).push(
+        MaterialPageRoute(
+          fullscreenDialog: true,
+          builder: (ctx) => MapScreen(isSelecting: true),
+        ),
+      );
 
-    if (selectedLocation.latitude == 0.0000 &&
-        selectedLocation.longitude == 0.0000) {
+      if (selectedLocation.latitude == 0.0000 &&
+          selectedLocation.longitude == 0.0000) {
+        return;
+      }
+
+      _showPreview(selectedLocation.latitude, selectedLocation.longitude);
+
+      widget.onSelectPixelPlace(
+        selectedLocation.latitude,
+        selectedLocation.longitude,
+      );
+    } catch (error) {
       return;
     }
-
-    widget.onSelectPixelPlace(
-      selectedLocation.latitude,
-      selectedLocation.longitude,
-    );
-
-    _showPreview(selectedLocation.latitude, selectedLocation.longitude);
   }
 
   @override
