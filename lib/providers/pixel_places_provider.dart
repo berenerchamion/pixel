@@ -15,6 +15,7 @@ class PixelPlacesProvider with ChangeNotifier {
 
   Future<void> addPixelPlace(
       String title, XFile image, PixelLocation location) async {
+    print('Adding pixel place in provider...');
     final newPixelPlace = Place(
       id: DateTime.now().toString(),
       image: image,

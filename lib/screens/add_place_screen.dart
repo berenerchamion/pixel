@@ -25,11 +25,11 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
     _selectedImage = file;
   }
 
-  void _selectLocation(double lat, double long) {
-    String address = LocationHelper.getPixelPlaceAddress(
+  void _selectLocation(double lat, double long) async {
+    String address = await LocationHelper.getPixelPlaceAddress(
       latitude: lat,
       longitude: long,
-    ) as String;
+    );
 
     _selectedLocation = PixelLocation(
       latitude: lat,
@@ -39,6 +39,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   }
 
   void _savePlace() {
+    print('Saving place...');
     if (_titleController.text.isEmpty ||
         _selectedImage == null ||
         _selectedLocation == null) {

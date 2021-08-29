@@ -44,12 +44,17 @@ class _LocationInputState extends State<LocationInput> {
         selectedLocation.longitude == 0.0000) {
       return;
     }
-    print(
-        'Location: ${selectedLocation.latitude}, ${selectedLocation.longitude}');
     widget.onSelectPixelPlace(
       selectedLocation.latitude,
       selectedLocation.longitude,
     );
+    final staticPixelPlaceMapUrl = LocationHelper.generatePixelPlacePreview(
+      latitude: selectedLocation.latitude,
+      longitude: selectedLocation.longitude,
+    );
+    setState(() {
+      _previewImageUrl = staticPixelPlaceMapUrl;
+    });
   }
 
   @override

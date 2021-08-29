@@ -16,7 +16,8 @@ class LocationHelper {
     required double longitude,
   }) async {
     final String _googleApiKey = dotenv.get('GOOGLE_API_KEY');
-    Uri uri = Uri.parse('https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$_googleApiKey');
+    String url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$_googleApiKey';
+    Uri uri = Uri.parse(url);
     final response = await get(uri);
     return json.decode(response.body)['results'][0]['formatted_address'];
   }
