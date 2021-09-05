@@ -1,7 +1,4 @@
 import 'package:cross_file/cross_file.dart';
-import 'package:flutter/foundation.dart';
-import 'dart:io';
-
 import './pixel_location.dart';
 
 class Place{

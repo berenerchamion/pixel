@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:cross_file/cross_file.dart';
 import 'dart:io';
 
 import './add_place_screen.dart';
