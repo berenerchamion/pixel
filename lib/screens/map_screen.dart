@@ -24,7 +24,7 @@ class _MapScreenState extends State<MapScreen> {
   LatLng pickedPixelPlace;
 
   _MapScreenState({ this.pickedPixelPlace = const LatLng(0.0, 0.0),
-  })
+  });
 
   void _selectLocation(LatLng position) {
     setState(() {
@@ -37,8 +37,8 @@ class _MapScreenState extends State<MapScreen> {
     if (!widget.isSelecting) {
       pickedPixelPlace = LatLng(widget.pixelLocation.latitude, widget.pixelLocation.longitude);
     }
-    print('lat: ${_pickedPixelPlace.latitude}');
-    print('lng: ${_pickedPixelPlace.longitude}');
+    print('lat: ${pickedPixelPlace.latitude}');
+    print('lng: ${pickedPixelPlace.longitude}');
 
     return Scaffold(
       appBar: AppBar(
