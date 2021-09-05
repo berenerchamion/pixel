@@ -13,6 +13,10 @@ class PixelPlacesProvider with ChangeNotifier {
     return [..._places];
   }
 
+  Place findById(String placeId){
+    return _places.firstWhere((place) => place.id == placeId);
+  }
+
   Future<void> addPixelPlace(
       String title, XFile image, PixelLocation location) async {
     print('Adding pixel place in provider...');

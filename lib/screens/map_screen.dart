@@ -21,30 +21,41 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  LatLng _pickedPixelPlace = LatLng(0.0000, 0.0000);
+  LatLng pickedPixelPlace;
+
+  _MapScreenState({ this.pickedPixelPlace = const LatLng(0.0, 0.0),
+  })
 
   void _selectLocation(LatLng position) {
     setState(() {
-      _pickedPixelPlace = position;
+      pickedPixelPlace = position;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!widget.isSelecting) {
+      pickedPixelPlace = LatLng(widget.pixelLocation.latitude, widget.pixelLocation.longitude);
+    }
+    print('lat: ${_pickedPixelPlace.latitude}');
+    print('lng: ${_pickedPixelPlace.longitude}');
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pick Your Location'),
+        title: widget.isSelecting
+            ? Text('Pick Your Location')
+            : Text('Pixel Place Location'),
         actions: <Widget>[
           if (widget.isSelecting)
             IconButton(
               icon: Icon(
                 Icons.check,
               ),
-              onPressed: _pickedPixelPlace.latitude == 0.0 &&
-                      _pickedPixelPlace.longitude == 0.0
+              onPressed: pickedPixelPlace.latitude == 0.0 &&
+                      pickedPixelPlace.longitude == 0.0
                   ? null
                   : () {
-                      Navigator.of(context).pop(_pickedPixelPlace);
+                      Navigator.of(context).pop(pickedPixelPlace);
                     },
             ),
         ],
@@ -56,15 +67,22 @@ class _MapScreenState extends State<MapScreen> {
           zoom: 16,
         ),
         onTap: widget.isSelecting ? _selectLocation : null,
-        markers: _pickedPixelPlace.latitude != 0.0 &&
-                _pickedPixelPlace.latitude != 0.0
+        markers: pickedPixelPlace.latitude != 0.0 &&
+                pickedPixelPlace.latitude != 0.0 &&
+                widget.isSelecting == false
             ? {
                 Marker(
-                  position: _pickedPixelPlace,
+                  position: LatLng(widget.pixelLocation.latitude,
+                      widget.pixelLocation.longitude),
                   markerId: MarkerId('m1'),
                 ),
               }
-            : {},
+            : {
+                Marker(
+                  position: pickedPixelPlace,
+                  markerId: MarkerId('m1'),
+                ),
+              },
       ),
     );
   }

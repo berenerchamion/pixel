@@ -7,6 +7,8 @@ import 'dart:io';
 import './add_place_screen.dart';
 import '../providers/pixel_places_provider.dart';
 
+import '../screens/place_detail_screen.dart';
+
 class PlacesListScreen extends StatelessWidget {
   const PlacesListScreen({Key? key}) : super(key: key);
 
@@ -49,7 +51,12 @@ class PlacesListScreen extends StatelessWidget {
                             ),
                             title: Text(pixelPlacesProvider.places[i].title),
                             subtitle: Text(pixelPlacesProvider.places[i].location.address),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                PlaceDetailScreen.routeName,
+                                arguments: pixelPlacesProvider.places[i].id,
+                              );
+                            },
                           );
                         });
                   } else {
