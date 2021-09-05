@@ -39,7 +39,6 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   }
 
   void _savePlace() {
-    print('Saving place...');
     if (_titleController.text.isEmpty ||
         _selectedImage == null ||
         _selectedLocation == null) {

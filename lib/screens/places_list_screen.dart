@@ -44,7 +44,6 @@ class PlacesListScreen extends StatelessWidget {
                         itemBuilder: (ctx, int i) {
                           return ListTile(
                             leading: CircleAvatar(
-                              // Image? pixelImage = Image.file(File(image.path));
                               backgroundImage: FileImage(File(
                                   pixelPlacesProvider.places[i].image.path)),
                             ),
